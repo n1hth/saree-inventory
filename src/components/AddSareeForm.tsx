@@ -61,6 +61,8 @@ export function AddSareeForm({ onAdd, onClose }: AddSareeFormProps) {
         left: 0,
         right: 0,
         bottom: 0,
+        maxWidth: '480px',
+        margin: '0 auto',
         maxHeight: '90vh',
         backgroundColor: 'var(--color-bg)',
         zIndex: 100,
