@@ -55,17 +55,20 @@ export function AddSareeForm({ onAdd, onClose }: AddSareeFormProps) {
         }}
       />
       
-      {/* Full Screen Slide-Up */}
+      {/* Bottom Sheet */}
       <div style={{
         position: 'fixed',
-        top: 0,
         left: 0,
         right: 0,
         bottom: 0,
+        maxHeight: '90vh',
         backgroundColor: 'var(--color-bg)',
         zIndex: 100,
         display: 'flex',
         flexDirection: 'column',
+        borderTopLeftRadius: '24px',
+        borderTopRightRadius: '24px',
+        boxShadow: '0 -4px 20px rgba(0,0,0,0.15)',
         animation: 'slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
       }}>
         <div style={{
@@ -74,6 +77,8 @@ export function AddSareeForm({ onAdd, onClose }: AddSareeFormProps) {
           justifyContent: 'space-between',
           padding: 'var(--spacing-md) var(--spacing-lg)',
           backgroundColor: 'var(--color-surface)',
+          borderTopLeftRadius: '24px',
+          borderTopRightRadius: '24px',
           borderBottom: '1px solid var(--color-border)'
         }}>
           <h2 style={{ fontSize: '1.25rem', fontWeight: 600 }}>Add New Saree</h2>
@@ -87,12 +92,12 @@ export function AddSareeForm({ onAdd, onClose }: AddSareeFormProps) {
         </div>
 
         <form onSubmit={handleSubmit} style={{
-          padding: 'var(--spacing-lg)',
+          padding: 'var(--spacing-md) var(--spacing-lg)',
           display: 'flex',
           flexDirection: 'column',
-          gap: 'var(--spacing-md)',
+          gap: '12px',
           overflowY: 'auto',
-          paddingBottom: 'calc(var(--spacing-xl) + env(safe-area-inset-bottom))'
+          paddingBottom: 'calc(var(--spacing-lg) + env(safe-area-inset-bottom))'
         }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             <label style={{ fontWeight: 500, fontSize: '0.95rem' }} htmlFor="sku">SKU / Design ID</label>
