@@ -55,20 +55,17 @@ export function AddSareeForm({ onAdd, onClose }: AddSareeFormProps) {
         }}
       />
       
-      {/* Bottom Sheet */}
+      {/* Full Screen Slide-Up */}
       <div style={{
         position: 'fixed',
+        top: 0,
         left: 0,
         right: 0,
         bottom: 0,
-        maxHeight: '90vh',
         backgroundColor: 'var(--color-bg)',
         zIndex: 100,
         display: 'flex',
         flexDirection: 'column',
-        borderTopLeftRadius: '24px',
-        borderTopRightRadius: '24px',
-        boxShadow: '0 -4px 20px rgba(0,0,0,0.15)',
         animation: 'slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
       }}>
         <div style={{
@@ -77,8 +74,6 @@ export function AddSareeForm({ onAdd, onClose }: AddSareeFormProps) {
           justifyContent: 'space-between',
           padding: 'var(--spacing-md) var(--spacing-lg)',
           backgroundColor: 'var(--color-surface)',
-          borderTopLeftRadius: '24px',
-          borderTopRightRadius: '24px',
           borderBottom: '1px solid var(--color-border)'
         }}>
           <h2 style={{ fontSize: '1.25rem', fontWeight: 600 }}>Add New Saree</h2>
