@@ -52,7 +52,7 @@ export function Login() {
           width: '40px',
           height: '40px',
           backgroundColor: 'var(--color-primary)',
-          color: 'white',
+          color: 'var(--color-bg)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -159,7 +159,7 @@ export function Login() {
               style={{
                 width: '100%',
                 backgroundColor: 'var(--color-primary)',
-                color: 'white',
+                color: 'var(--color-bg)',
                 padding: '16px',
                 marginTop: 'var(--spacing-md)',
                 display: 'flex',

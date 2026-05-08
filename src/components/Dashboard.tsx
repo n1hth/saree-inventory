@@ -50,19 +50,19 @@ export function Dashboard({ inventory }: DashboardProps) {
         <div style={{
           flex: 1,
           backgroundColor: 'var(--color-primary)',
-          color: 'white',
+          color: 'var(--color-bg)',
           padding: 'var(--spacing-lg) var(--spacing-md)',
           borderRadius: 'var(--radius-lg)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          boxShadow: 'var(--shadow-md)'
+          boxShadow: 'var(--glow-primary)'
         }}>
           <p style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1px', opacity: 0.8, marginBottom: '8px' }}>
             Est. Capital
           </p>
-          <h2 style={{ fontSize: '1.8rem', fontWeight: 400, lineHeight: 1.2 }}>
+          <h2 style={{ fontSize: '1.8rem', fontWeight: 600, lineHeight: 1.2 }}>
             {formattedValue}
           </h2>
         </div>

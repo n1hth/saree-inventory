@@ -4,17 +4,19 @@ import { useAuth } from './hooks/useAuth';
 import { useStores } from './hooks/useStores';
 import { useInventory } from './hooks/useInventory';
 import { Login } from './components/Login';
-import { StoreSelector } from './components/StoreSelector';
 import { Dashboard } from './components/Dashboard';
 import { SareeList } from './components/SareeList';
 import { AddSareeForm } from './components/AddSareeForm';
 import { Toast } from './components/Toast';
+import { BottomNav } from './components/BottomNav';
+import { Profile } from './components/Profile';
 
 export default function App() {
   const { user, loading: authLoading, signOut } = useAuth();
   const { stores, selectedStoreId, setSelectedStoreId, createStore, loading: storesLoading } = useStores();
   const { inventory, addItem, updateQuantity } = useInventory(selectedStoreId);
   
+  const [activeTab, setActiveTab] = useState<'inventory' | 'profile'>('inventory');
   const [isAdding, setIsAdding] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
@@ -43,69 +45,78 @@ export default function App() {
             Lumina Lux
           </h1>
         </div>
-        <StoreSelector 
+      </header>
+
+      {activeTab === 'profile' ? (
+        <Profile 
+          user={user}
           stores={stores}
           selectedStoreId={selectedStoreId}
           onSelectStore={setSelectedStoreId}
           onCreateStore={createStore}
           onSignOut={signOut}
         />
-      </header>
-
-      {storesLoading ? (
-        <div style={{ textAlign: 'center', padding: '2rem' }}>Loading stores...</div>
-      ) : !selectedStoreId ? (
-        <div style={{ textAlign: 'center', padding: '2rem', backgroundColor: 'var(--color-surface)', borderRadius: 'var(--radius-lg)' }}>
-          <p>You don't have any stores selected.</p>
-          <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', marginTop: '8px' }}>Create one using the dropdown above.</p>
-        </div>
       ) : (
+        /* Inventory Tab */
         <>
-          <Dashboard inventory={inventory} />
-          
-          <SareeList 
-            inventory={inventory} 
-            onUpdateQuantity={updateQuantity}
-            onSuccessToast={handleSuccessToast}
-          />
+          {storesLoading ? (
+            <div style={{ textAlign: 'center', padding: '2rem' }}>Loading stores...</div>
+          ) : !selectedStoreId ? (
+            <div style={{ textAlign: 'center', padding: '2rem', backgroundColor: 'var(--color-surface)', borderRadius: 'var(--radius-lg)' }}>
+              <p>You don't have any locations selected.</p>
+              <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', marginTop: '8px' }}>Go to Profile to create or select one.</p>
+            </div>
+          ) : (
+            <>
+              <Dashboard inventory={inventory} />
+              
+              <SareeList 
+                inventory={inventory} 
+                onUpdateQuantity={updateQuantity}
+                onSuccessToast={handleSuccessToast}
+              />
 
-          {isAdding && (
-            <AddSareeForm 
-              onAdd={handleAddSaree} 
-              onClose={() => setIsAdding(false)} 
-            />
+              {isAdding && (
+                <AddSareeForm 
+                  onAdd={handleAddSaree} 
+                  onClose={() => setIsAdding(false)} 
+                />
+              )}
+
+              {/* Premium Floating Action Button */}
+              <button
+                onClick={() => setIsAdding(true)}
+                style={{
+                  position: 'fixed',
+                  bottom: 'calc(var(--spacing-xl) + 24px + env(safe-area-inset-bottom))',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  backgroundColor: 'var(--color-primary)',
+                  color: 'var(--color-bg)',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  borderRadius: 'var(--radius-full)',
+                  padding: '16px 32px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  fontSize: '1rem',
+                  fontWeight: 600,
+                  letterSpacing: '1px',
+                  textTransform: 'uppercase',
+                  boxShadow: 'var(--glow-primary)',
+                  zIndex: 40,
+                }}
+                aria-label="Add New Saree"
+              >
+                <Plus size={20} />
+                <span>Add Item</span>
+              </button>
+            </>
           )}
-
-          {/* Premium Floating Action Button */}
-          <button
-            onClick={() => setIsAdding(true)}
-            style={{
-              position: 'fixed',
-              bottom: 'calc(var(--spacing-lg) + env(safe-area-inset-bottom))',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              backgroundColor: 'var(--color-primary)',
-              color: 'white',
-              border: 'none',
-              borderRadius: 'var(--radius-full)',
-              padding: '16px 32px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
-              fontSize: '1rem',
-              fontWeight: 500,
-              letterSpacing: '1px',
-              textTransform: 'uppercase',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
-              zIndex: 40,
-            }}
-            aria-label="Add New Saree"
-          >
-            <Plus size={20} />
-            <span>Add Item</span>
-          </button>
         </>
       )}
+
+      <BottomNav activeTab={activeTab} onChangeTab={setActiveTab} />
 
       {toastMessage && (
         <Toast 

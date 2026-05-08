@@ -229,7 +229,7 @@ export function AddSareeForm({ onAdd, onClose }: AddSareeFormProps) {
             <button type="submit" style={{
               width: '100%',
               backgroundColor: 'var(--color-primary)',
-              color: 'white',
+              color: 'var(--color-bg)',
               padding: '16px',
               borderRadius: 'var(--radius-full)',
               display: 'flex',

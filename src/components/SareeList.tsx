@@ -63,7 +63,7 @@ export function SareeList({ inventory, onUpdateQuantity, onSuccessToast }: Saree
         zIndex: 10,
         display: 'flex',
         alignItems: 'center',
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        backgroundColor: 'rgba(17, 17, 17, 0.8)',
         backdropFilter: 'blur(12px)',
         WebkitBackdropFilter: 'blur(12px)',
         padding: '0 var(--spacing-md)',
@@ -142,7 +142,7 @@ export function SareeList({ inventory, onUpdateQuantity, onSuccessToast }: Saree
                       height: '10px', 
                       borderRadius: '50%', 
                       backgroundColor: stringToColor(item.color),
-                      border: '1px solid rgba(0,0,0,0.1)'
+                      border: '1px solid rgba(255,255,255,0.2)'
                     }} />
                     {item.color}
                   </div>
