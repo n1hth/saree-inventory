@@ -37,7 +37,7 @@ export default function App() {
 
   return (
     <div className="container">
-      <header style={{ marginBottom: 'var(--spacing-md)', marginTop: 'var(--spacing-md)' }}>
+      <header style={{ position: 'relative', zIndex: 50, marginBottom: 'var(--spacing-md)', marginTop: 'var(--spacing-md)' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <h1 style={{ fontSize: '1.5rem', fontWeight: 300, color: 'var(--color-primary)', letterSpacing: '-0.5px' }}>
             Lumina Lux

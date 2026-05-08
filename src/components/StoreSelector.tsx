@@ -28,7 +28,7 @@ export function StoreSelector({ stores, selectedStoreId, onSelectStore, onCreate
   };
 
   return (
-    <div style={{ position: 'relative', marginBottom: 'var(--spacing-xl)' }}>
+    <div style={{ position: 'relative', marginBottom: 'var(--spacing-xl)', zIndex: 100 }}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         style={{
