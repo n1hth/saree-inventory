@@ -61,7 +61,7 @@ export function Login() {
           letterSpacing: '2px',
           marginBottom: 'var(--spacing-md)'
         }}>
-          LV
+          N
         </div>
         <h1 style={{ 
           fontSize: '2rem', 
@@ -70,7 +70,7 @@ export function Login() {
           color: 'var(--color-text-main)',
           marginBottom: '8px'
         }}>
-          Lumina Lux
+          Nisira
         </h1>
         <p style={{ 
           color: 'var(--color-text-muted)', 

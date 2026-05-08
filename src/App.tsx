@@ -45,7 +45,7 @@ export default function App() {
             onClick={() => setActiveTab('inventory')}
             style={{ fontSize: '1.5rem', fontWeight: 300, color: 'var(--color-primary)', letterSpacing: '-0.5px', cursor: 'pointer' }}
           >
-            Lumina Lux
+            Nisira
           </h1>
           <button 
             onClick={() => setActiveTab('profile')}
@@ -88,7 +88,12 @@ export default function App() {
             </div>
           ) : (
             <>
-              <Dashboard inventory={inventory} />
+              <Dashboard 
+                inventory={inventory} 
+                stores={stores}
+                selectedStoreId={selectedStoreId}
+                onSelectStore={setSelectedStoreId}
+              />
               
               <SareeList 
                 inventory={inventory} 
