@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Plus } from 'lucide-react';
+import { User as UserIcon } from 'lucide-react';
 import { useAuth } from './hooks/useAuth';
 import { useStores } from './hooks/useStores';
 import { useInventory } from './hooks/useInventory';
@@ -8,7 +8,7 @@ import { Dashboard } from './components/Dashboard';
 import { SareeList } from './components/SareeList';
 import { AddSareeForm } from './components/AddSareeForm';
 import { Toast } from './components/Toast';
-import { BottomNav } from './components/BottomNav';
+import { Dock } from './components/Dock';
 import { Profile } from './components/Profile';
 
 export default function App() {
@@ -38,12 +38,32 @@ export default function App() {
   };
 
   return (
-    <div className="container">
-      <header style={{ position: 'relative', zIndex: 50, marginBottom: 'var(--spacing-md)', marginTop: 'var(--spacing-md)' }}>
+    <div className="container" style={{ paddingBottom: 'calc(var(--spacing-xl) * 3)' }}>
+      <header style={{ position: 'relative', zIndex: 50, marginBottom: 'var(--spacing-lg)', marginTop: 'var(--spacing-md)' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <h1 style={{ fontSize: '1.5rem', fontWeight: 300, color: 'var(--color-primary)', letterSpacing: '-0.5px' }}>
+          <h1 
+            onClick={() => setActiveTab('inventory')}
+            style={{ fontSize: '1.5rem', fontWeight: 300, color: 'var(--color-primary)', letterSpacing: '-0.5px', cursor: 'pointer' }}
+          >
             Lumina Lux
           </h1>
+          <button 
+            onClick={() => setActiveTab('profile')}
+            style={{
+              width: '40px',
+              height: '40px',
+              borderRadius: '50%',
+              backgroundColor: activeTab === 'profile' ? 'var(--color-primary)' : 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'all 0.2s ease',
+              color: activeTab === 'profile' ? 'var(--color-bg)' : 'var(--color-text-main)'
+            }}
+          >
+            <UserIcon size={18} />
+          </button>
         </div>
       </header>
 
@@ -82,41 +102,19 @@ export default function App() {
                   onClose={() => setIsAdding(false)} 
                 />
               )}
-
-              {/* Premium Floating Action Button */}
-              <button
-                onClick={() => setIsAdding(true)}
-                style={{
-                  position: 'fixed',
-                  bottom: 'calc(var(--spacing-xl) + 24px + env(safe-area-inset-bottom))',
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  backgroundColor: 'var(--color-primary)',
-                  color: 'var(--color-bg)',
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  borderRadius: 'var(--radius-full)',
-                  padding: '16px 32px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  fontSize: '1rem',
-                  fontWeight: 600,
-                  letterSpacing: '1px',
-                  textTransform: 'uppercase',
-                  boxShadow: 'var(--glow-primary)',
-                  zIndex: 40,
-                }}
-                aria-label="Add New Saree"
-              >
-                <Plus size={20} />
-                <span>Add Item</span>
-              </button>
             </>
           )}
         </>
       )}
 
-      <BottomNav activeTab={activeTab} onChangeTab={setActiveTab} />
+      {/* Replaced BottomNav and Floating Action Button with a unified Dock */}
+      {!isAdding && (
+        <Dock 
+          activeTab={activeTab} 
+          onChangeTab={setActiveTab} 
+          onAddClick={() => setIsAdding(true)} 
+        />
+      )}
 
       {toastMessage && (
         <Toast 
