@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import type { Store } from '../types';
 import { User as UserIcon, LogOut, Store as StoreIcon, Plus, ChevronDown } from 'lucide-react';
 import type { User } from '@supabase/supabase-js';
+import { LocationPickerSheet } from './LocationPickerSheet';
 
 interface ProfileProps {
   user: User;
@@ -12,6 +14,7 @@ interface ProfileProps {
 }
 
 export function Profile({ user, stores, selectedStoreId, onSelectStore, onCreateStore, onSignOut }: ProfileProps) {
+  const [isPickerOpen, setIsPickerOpen] = useState(false);
   const selectedStore = stores.find(s => s.id === selectedStoreId);
 
   const handleCreateStore = () => {
@@ -58,18 +61,23 @@ export function Profile({ user, stores, selectedStoreId, onSelectStore, onCreate
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-sm)' }}>
         <h3 style={{ fontSize: '1.2rem', fontWeight: 400, letterSpacing: '0.5px' }}>Current Location</h3>
         
-        {/* Native Select Wrapper for Mobile Reliability */}
+        {/* Custom Location Picker Button */}
         <div style={{ position: 'relative' }}>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            backgroundColor: 'var(--color-surface)',
-            padding: '16px',
-            borderRadius: 'var(--radius-md)',
-            border: '1px solid var(--color-border)',
-            boxShadow: 'var(--shadow-sm)'
-          }}>
+          <button
+            onClick={() => setIsPickerOpen(true)}
+            style={{
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              backgroundColor: 'var(--color-surface)',
+              padding: '16px',
+              borderRadius: 'var(--radius-md)',
+              border: '1px solid var(--color-border)',
+              boxShadow: 'var(--shadow-sm)',
+              color: 'var(--color-text-main)'
+            }}
+          >
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <StoreIcon size={20} color="var(--color-primary)" />
               <span style={{ fontSize: '1.1rem', fontWeight: 500 }}>
@@ -77,29 +85,17 @@ export function Profile({ user, stores, selectedStoreId, onSelectStore, onCreate
               </span>
             </div>
             <ChevronDown size={20} color="var(--color-text-muted)" />
-          </div>
-          
-          <select
-            value={selectedStoreId || ''}
-            onChange={(e) => onSelectStore(e.target.value)}
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              opacity: 0, /* Visually hidden, natively interactive */
-              cursor: 'pointer',
-              appearance: 'none',
-              WebkitAppearance: 'none'
-            }}
-          >
-            <option value="" disabled>Select Location</option>
-            {stores.map(store => (
-              <option key={store.id} value={store.id}>{store.name}</option>
-            ))}
-          </select>
+          </button>
         </div>
+
+        {isPickerOpen && (
+          <LocationPickerSheet
+            stores={stores}
+            selectedStoreId={selectedStoreId}
+            onSelectStore={onSelectStore}
+            onClose={() => setIsPickerOpen(false)}
+          />
+        )}
 
         <button
           onClick={handleCreateStore}

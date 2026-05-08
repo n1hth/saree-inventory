@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import type { Saree, Store } from '../types';
 import { AlertTriangle, Store as StoreIcon, ChevronDown, BarChart2 } from 'lucide-react';
+import { LocationPickerSheet } from './LocationPickerSheet';
 
 interface DashboardProps {
   inventory: Saree[];
@@ -9,6 +11,7 @@ interface DashboardProps {
 }
 
 export function Dashboard({ inventory, stores, selectedStoreId, onSelectStore }: DashboardProps) {
+  const [isPickerOpen, setIsPickerOpen] = useState(false);
   const totalStock = inventory.reduce((sum, item) => sum + item.quantity, 0);
   const totalValue = inventory.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const lowStockItems = inventory.filter(item => item.quantity > 0 && item.quantity < 3);
@@ -43,46 +46,37 @@ export function Dashboard({ inventory, stores, selectedStoreId, onSelectStore }:
       
       {/* Home Screen Store Selector (Glassmorphic Pill) */}
       <div style={{ position: 'relative', alignSelf: 'flex-start' }}>
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-          padding: '8px 16px',
-          backgroundColor: 'rgba(255, 255, 255, 0.05)',
-          border: '1px solid var(--color-border)',
-          borderRadius: 'var(--radius-full)',
-          backdropFilter: 'blur(10px)',
-          WebkitBackdropFilter: 'blur(10px)',
-          boxShadow: 'var(--shadow-sm)'
-        }}>
+        <button
+          onClick={() => setIsPickerOpen(true)}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '8px 16px',
+            backgroundColor: 'rgba(255, 255, 255, 0.05)',
+            border: '1px solid var(--color-border)',
+            borderRadius: 'var(--radius-full)',
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)',
+            boxShadow: 'var(--shadow-sm)'
+          }}
+        >
           <StoreIcon size={14} color="var(--color-primary)" />
           <span style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--color-primary)' }}>
             {selectedStore ? selectedStore.name : 'Select Location'}
           </span>
           <ChevronDown size={14} color="var(--color-text-muted)" />
-        </div>
-        
-        <select
-          value={selectedStoreId || ''}
-          onChange={(e) => onSelectStore(e.target.value)}
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            opacity: 0,
-            cursor: 'pointer',
-            appearance: 'none',
-            WebkitAppearance: 'none'
-          }}
-        >
-          <option value="" disabled>Select Location</option>
-          {stores.map(store => (
-            <option key={store.id} value={store.id}>{store.name}</option>
-          ))}
-        </select>
+        </button>
       </div>
+
+      {isPickerOpen && (
+        <LocationPickerSheet
+          stores={stores}
+          selectedStoreId={selectedStoreId}
+          onSelectStore={onSelectStore}
+          onClose={() => setIsPickerOpen(false)}
+        />
+      )}
 
       <div style={{ display: 'flex', gap: 'var(--spacing-md)' }}>
         {/* Total Stock Metric */}

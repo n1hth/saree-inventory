@@ -124,13 +124,16 @@ export function AddSareeForm({ onAdd, onClose }: AddSareeFormProps) {
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            <label style={{ fontWeight: 500, fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--color-text-muted)' }} htmlFor="category">Category</label>
-            <select
+            <label style={{ fontWeight: 500, fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--color-text-muted)' }} htmlFor="category">Material / Category</label>
+            <input
               id="category"
               name="category"
+              list="categories"
               value={formData.category}
               onChange={handleChange}
+              placeholder="e.g. Silk, Cotton, or type your own"
               required
+              autoCapitalize="words"
               style={{
                 width: '100%',
                 padding: '12px 0',
@@ -138,17 +141,19 @@ export function AddSareeForm({ onAdd, onClose }: AddSareeFormProps) {
                 borderBottom: '1px solid var(--color-border)',
                 borderRadius: 0,
                 fontSize: '1.1rem',
-                backgroundColor: 'transparent',
-                WebkitAppearance: 'none'
+                backgroundColor: 'transparent'
               }}
-            >
-              <option value="">Select a category</option>
-              <option value="Silk">Silk</option>
-              <option value="Cotton">Cotton</option>
-              <option value="Fancy">Fancy</option>
-              <option value="Georgette">Georgette</option>
-              <option value="Linen">Linen</option>
-            </select>
+            />
+            <datalist id="categories">
+              <option value="Silk" />
+              <option value="Cotton" />
+              <option value="Fancy" />
+              <option value="Georgette" />
+              <option value="Linen" />
+              <option value="Banarasi" />
+              <option value="Kanjeevaram" />
+              <option value="Organza" />
+            </datalist>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
