@@ -3,7 +3,7 @@ import type { Saree } from '../types';
 import { X, Save } from 'lucide-react';
 
 interface AddSareeFormProps {
-  onAdd: (item: Omit<Saree, 'id' | 'createdAt'>) => void;
+  onAdd: (item: Omit<Saree, 'id' | 'created_at'>) => void;
   onClose: () => void;
 }
 
