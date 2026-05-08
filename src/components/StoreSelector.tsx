@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Store } from '../types';
-import { Store as StoreIcon, Plus, ChevronDown } from 'lucide-react';
+import { Store as StoreIcon, Plus, ChevronDown, LogOut } from 'lucide-react';
 
 interface StoreSelectorProps {
   stores: Store[];
@@ -28,29 +28,39 @@ export function StoreSelector({ stores, selectedStoreId, onSelectStore, onCreate
   };
 
   return (
-    <div style={{ position: 'relative', marginBottom: 'var(--spacing-md)' }}>
+    <div style={{ position: 'relative', marginBottom: 'var(--spacing-xl)' }}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '8px',
-          backgroundColor: 'var(--color-surface)',
-          padding: 'var(--spacing-sm) var(--spacing-md)',
-          borderRadius: 'var(--radius-md)',
-          border: '1px solid var(--color-border)',
+          gap: '12px',
+          backgroundColor: 'transparent',
+          padding: '12px 0',
           width: '100%',
           justifyContent: 'space-between',
-          boxShadow: 'var(--shadow-sm)'
+          borderBottom: '1px solid var(--color-border)',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <StoreIcon size={20} color="var(--color-primary)" />
-          <span style={{ fontWeight: 600, fontSize: '1rem' }}>
-            {selectedStore ? selectedStore.name : 'Select a Store'}
-          </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ 
+            width: '32px', height: '32px', 
+            backgroundColor: 'var(--color-primary)', color: 'white', 
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            borderRadius: 'var(--radius-sm)'
+          }}>
+            <StoreIcon size={16} />
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+            <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--color-text-muted)' }}>
+              Location
+            </span>
+            <span style={{ fontWeight: 600, fontSize: '1.2rem', letterSpacing: '-0.5px' }}>
+              {selectedStore ? selectedStore.name : 'Select a Store'}
+            </span>
+          </div>
         </div>
-        <ChevronDown size={20} color="var(--color-text-muted)" style={{ transform: isOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+        <ChevronDown size={20} color="var(--color-text-main)" style={{ transform: isOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)' }} />
       </button>
 
       {isOpen && (
@@ -59,16 +69,17 @@ export function StoreSelector({ stores, selectedStoreId, onSelectStore, onCreate
           top: '100%',
           left: 0,
           right: 0,
-          marginTop: '4px',
+          marginTop: '8px',
           backgroundColor: 'var(--color-surface)',
-          borderRadius: 'var(--radius-md)',
+          borderRadius: 'var(--radius-lg)',
           boxShadow: 'var(--shadow-lg)',
           border: '1px solid var(--color-border)',
           zIndex: 50,
-          overflow: 'hidden'
+          overflow: 'hidden',
+          animation: 'slideUpFade 0.2s ease-out forwards'
         }}>
           {isCreating ? (
-            <form onSubmit={handleCreate} style={{ padding: 'var(--spacing-sm)' }}>
+            <form onSubmit={handleCreate} style={{ padding: '16px' }}>
               <input
                 autoFocus
                 type="text"
@@ -77,24 +88,26 @@ export function StoreSelector({ stores, selectedStoreId, onSelectStore, onCreate
                 onChange={(e) => setNewStoreName(e.target.value)}
                 style={{
                   width: '100%',
-                  padding: '8px 12px',
-                  borderRadius: 'var(--radius-md)',
-                  border: '1px solid var(--color-primary)',
-                  marginBottom: '8px'
+                  padding: '12px 0',
+                  border: 'none',
+                  borderBottom: '1px solid var(--color-primary)',
+                  marginBottom: '16px',
+                  borderRadius: 0,
+                  fontSize: '1rem'
                 }}
               />
               <div style={{ display: 'flex', gap: '8px' }}>
                 <button
                   type="button"
                   onClick={() => setIsCreating(false)}
-                  style={{ flex: 1, padding: '6px', backgroundColor: 'var(--color-bg)', borderRadius: 'var(--radius-md)' }}
+                  style={{ flex: 1, padding: '10px', backgroundColor: 'var(--color-bg)', fontWeight: 500 }}
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={!newStoreName.trim()}
-                  style={{ flex: 1, padding: '6px', backgroundColor: 'var(--color-primary)', color: 'white', borderRadius: 'var(--radius-md)' }}
+                  style={{ flex: 1, padding: '10px', backgroundColor: 'var(--color-primary)', color: 'white', fontWeight: 500 }}
                 >
                   Create
                 </button>
@@ -102,47 +115,57 @@ export function StoreSelector({ stores, selectedStoreId, onSelectStore, onCreate
             </form>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              {stores.map(store => (
-                <button
-                  key={store.id}
-                  onClick={() => {
-                    onSelectStore(store.id);
-                    setIsOpen(false);
-                  }}
-                  style={{
-                    padding: 'var(--spacing-sm) var(--spacing-md)',
-                    textAlign: 'left',
-                    backgroundColor: store.id === selectedStoreId ? 'var(--color-bg)' : 'transparent',
-                    borderBottom: '1px solid var(--color-border)'
-                  }}
-                >
-                  {store.name}
-                </button>
-              ))}
+              <div style={{ maxHeight: '200px', overflowY: 'auto' }}>
+                {stores.map(store => (
+                  <button
+                    key={store.id}
+                    onClick={() => {
+                      onSelectStore(store.id);
+                      setIsOpen(false);
+                    }}
+                    style={{
+                      width: '100%',
+                      padding: '16px',
+                      textAlign: 'left',
+                      backgroundColor: store.id === selectedStoreId ? 'var(--color-bg)' : 'transparent',
+                      borderBottom: '1px solid var(--color-border)',
+                      fontSize: '1rem',
+                      fontWeight: store.id === selectedStoreId ? 600 : 400
+                    }}
+                  >
+                    {store.name}
+                  </button>
+                ))}
+              </div>
               <button
                 onClick={() => setIsCreating(true)}
                 style={{
-                  padding: 'var(--spacing-sm) var(--spacing-md)',
+                  width: '100%',
+                  padding: '16px',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
-                  color: 'var(--color-primary)',
+                  color: 'var(--color-text-main)',
                   fontWeight: 500,
-                  borderBottom: '1px solid var(--color-border)'
+                  borderBottom: '1px solid var(--color-border)',
+                  backgroundColor: 'var(--color-bg)'
                 }}
               >
-                <Plus size={18} /> Add New Store
+                <Plus size={18} /> Create Location
               </button>
               <button
                 onClick={onSignOut}
                 style={{
-                  padding: 'var(--spacing-sm) var(--spacing-md)',
-                  textAlign: 'left',
+                  width: '100%',
+                  padding: '16px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
                   color: 'var(--color-danger)',
                   fontWeight: 500
                 }}
               >
-                Sign Out
+                <LogOut size={18} /> Sign Out
               </button>
             </div>
           )}

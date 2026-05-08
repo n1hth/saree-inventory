@@ -37,10 +37,12 @@ export default function App() {
 
   return (
     <div className="container">
-      <header style={{ marginBottom: 'var(--spacing-md)', marginTop: 'var(--spacing-sm)' }}>
-        <h1 style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--color-primary)', marginBottom: 'var(--spacing-sm)' }}>
-          Inventory Manager
-        </h1>
+      <header style={{ marginBottom: 'var(--spacing-md)', marginTop: 'var(--spacing-md)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <h1 style={{ fontSize: '1.5rem', fontWeight: 300, color: 'var(--color-primary)', letterSpacing: '-0.5px' }}>
+            Lumina Lux
+          </h1>
+        </div>
         <StoreSelector 
           stores={stores}
           selectedStoreId={selectedStoreId}
@@ -74,27 +76,33 @@ export default function App() {
             />
           )}
 
-          {/* Floating Action Button */}
+          {/* Premium Floating Action Button */}
           <button
             onClick={() => setIsAdding(true)}
             style={{
               position: 'fixed',
-              bottom: 'var(--spacing-md)',
-              right: 'var(--spacing-md)',
-              width: '64px',
-              height: '64px',
-              borderRadius: '50%',
+              bottom: 'calc(var(--spacing-lg) + env(safe-area-inset-bottom))',
+              left: '50%',
+              transform: 'translateX(-50%)',
               backgroundColor: 'var(--color-primary)',
               color: 'white',
+              border: 'none',
+              borderRadius: 'var(--radius-full)',
+              padding: '16px 32px',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: 'var(--shadow-lg)',
-              zIndex: 50
+              gap: '12px',
+              fontSize: '1rem',
+              fontWeight: 500,
+              letterSpacing: '1px',
+              textTransform: 'uppercase',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
+              zIndex: 40,
             }}
             aria-label="Add New Saree"
           >
-            <Plus size={32} />
+            <Plus size={20} />
+            <span>Add Item</span>
           </button>
         </>
       )}

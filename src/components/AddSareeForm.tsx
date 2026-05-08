@@ -97,12 +97,12 @@ export function AddSareeForm({ onAdd, onClose }: AddSareeFormProps) {
           padding: 'var(--spacing-md) var(--spacing-lg)',
           display: 'flex',
           flexDirection: 'column',
-          gap: '12px',
+          gap: '24px',
           overflowY: 'auto',
           paddingBottom: 'calc(var(--spacing-lg) + env(safe-area-inset-bottom))'
         }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <label style={{ fontWeight: 500, fontSize: '0.95rem' }} htmlFor="sku">SKU / Design ID</label>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            <label style={{ fontWeight: 500, fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--color-text-muted)' }} htmlFor="sku">SKU / Design ID</label>
             <input
               id="sku"
               name="sku"
@@ -113,17 +113,18 @@ export function AddSareeForm({ onAdd, onClose }: AddSareeFormProps) {
               autoCapitalize="characters"
               style={{
                 width: '100%',
-                padding: '12px 16px',
-                borderRadius: 'var(--radius-md)',
-                border: '1px solid var(--color-border)',
-                fontSize: '16px', // Prevents iOS zoom
-                backgroundColor: 'var(--color-surface)'
+                padding: '12px 0',
+                border: 'none',
+                borderBottom: '1px solid var(--color-border)',
+                borderRadius: 0,
+                fontSize: '1.1rem',
+                backgroundColor: 'transparent'
               }}
             />
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <label style={{ fontWeight: 500, fontSize: '0.95rem' }} htmlFor="category">Category</label>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            <label style={{ fontWeight: 500, fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--color-text-muted)' }} htmlFor="category">Category</label>
             <select
               id="category"
               name="category"
@@ -132,11 +133,12 @@ export function AddSareeForm({ onAdd, onClose }: AddSareeFormProps) {
               required
               style={{
                 width: '100%',
-                padding: '12px 16px',
-                borderRadius: 'var(--radius-md)',
-                border: '1px solid var(--color-border)',
-                fontSize: '16px',
-                backgroundColor: 'var(--color-surface)',
+                padding: '12px 0',
+                border: 'none',
+                borderBottom: '1px solid var(--color-border)',
+                borderRadius: 0,
+                fontSize: '1.1rem',
+                backgroundColor: 'transparent',
                 WebkitAppearance: 'none'
               }}
             >
@@ -149,8 +151,8 @@ export function AddSareeForm({ onAdd, onClose }: AddSareeFormProps) {
             </select>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <label style={{ fontWeight: 500, fontSize: '0.95rem' }} htmlFor="color">Color</label>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            <label style={{ fontWeight: 500, fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--color-text-muted)' }} htmlFor="color">Color</label>
             <input
               id="color"
               name="color"
@@ -161,18 +163,19 @@ export function AddSareeForm({ onAdd, onClose }: AddSareeFormProps) {
               autoCapitalize="words"
               style={{
                 width: '100%',
-                padding: '12px 16px',
-                borderRadius: 'var(--radius-md)',
-                border: '1px solid var(--color-border)',
-                fontSize: '16px',
-                backgroundColor: 'var(--color-surface)'
+                padding: '12px 0',
+                border: 'none',
+                borderBottom: '1px solid var(--color-border)',
+                borderRadius: 0,
+                fontSize: '1.1rem',
+                backgroundColor: 'transparent'
               }}
             />
           </div>
 
           <div style={{ display: 'flex', gap: 'var(--spacing-md)' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', flex: 1 }}>
-              <label style={{ fontWeight: 500, fontSize: '0.95rem' }} htmlFor="quantity">Quantity</label>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', flex: 1 }}>
+              <label style={{ fontWeight: 500, fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--color-text-muted)' }} htmlFor="quantity">Quantity</label>
               <input
                 id="quantity"
                 name="quantity"
@@ -186,17 +189,18 @@ export function AddSareeForm({ onAdd, onClose }: AddSareeFormProps) {
                 style={{
                   width: '100%',
                   minWidth: 0,
-                  padding: '12px 16px',
-                  borderRadius: 'var(--radius-md)',
-                  border: '1px solid var(--color-border)',
-                  fontSize: '16px',
-                  backgroundColor: 'var(--color-surface)'
+                  padding: '12px 0',
+                  border: 'none',
+                  borderBottom: '1px solid var(--color-border)',
+                  borderRadius: 0,
+                  fontSize: '1.1rem',
+                  backgroundColor: 'transparent'
                 }}
               />
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', flex: 1 }}>
-              <label style={{ fontWeight: 500, fontSize: '0.95rem' }} htmlFor="price">Price (₹)</label>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', flex: 1 }}>
+              <label style={{ fontWeight: 500, fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--color-text-muted)' }} htmlFor="price">Price (₹)</label>
               <input
                 id="price"
                 name="price"
@@ -210,32 +214,34 @@ export function AddSareeForm({ onAdd, onClose }: AddSareeFormProps) {
                 style={{
                   width: '100%',
                   minWidth: 0,
-                  padding: '12px 16px',
-                  borderRadius: 'var(--radius-md)',
-                  border: '1px solid var(--color-border)',
-                  fontSize: '16px',
-                  backgroundColor: 'var(--color-surface)'
+                  padding: '12px 0',
+                  border: 'none',
+                  borderBottom: '1px solid var(--color-border)',
+                  borderRadius: 0,
+                  fontSize: '1.1rem',
+                  backgroundColor: 'transparent'
                 }}
               />
             </div>
           </div>
 
-          <div style={{ marginTop: 'var(--spacing-md)' }}>
+          <div style={{ marginTop: 'var(--spacing-sm)' }}>
             <button type="submit" style={{
               width: '100%',
               backgroundColor: 'var(--color-primary)',
               color: 'white',
-              padding: '14px',
-              borderRadius: 'var(--radius-lg)',
+              padding: '16px',
+              borderRadius: 'var(--radius-full)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               gap: '8px',
-              fontSize: '1.1rem',
-              fontWeight: 600,
-              boxShadow: 'var(--shadow-md)'
+              fontSize: '1rem',
+              fontWeight: 500,
+              textTransform: 'uppercase',
+              letterSpacing: '1px'
             }}>
-              <Save size={20} />
+              <Save size={18} />
               Save Item
             </button>
           </div>
