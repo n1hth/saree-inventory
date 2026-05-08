@@ -1,14 +1,24 @@
 import type { Store } from '../types';
-import { X, Store as StoreIcon, Check } from 'lucide-react';
+import { X, Store as StoreIcon, Check, Plus } from 'lucide-react';
 
 interface LocationPickerSheetProps {
   stores: Store[];
   selectedStoreId: string | null;
   onSelectStore: (id: string) => void;
+  onCreateStore?: (name: string) => void;
   onClose: () => void;
 }
 
-export function LocationPickerSheet({ stores, selectedStoreId, onSelectStore, onClose }: LocationPickerSheetProps) {
+export function LocationPickerSheet({ stores, selectedStoreId, onSelectStore, onCreateStore, onClose }: LocationPickerSheetProps) {
+  const handleCreate = () => {
+    if (!onCreateStore) return;
+    const name = window.prompt('Enter new location name:');
+    if (name && name.trim()) {
+      onCreateStore(name.trim());
+      onClose();
+    }
+  };
+
   return (
     <>
       {/* Backdrop */}
@@ -21,7 +31,7 @@ export function LocationPickerSheet({ stores, selectedStoreId, onSelectStore, on
           right: 0,
           bottom: 0,
           backgroundColor: 'rgba(0,0,0,0.6)',
-          zIndex: 90,
+          zIndex: 190,
           animation: 'fadeIn 0.2s ease-out'
         }}
       />
@@ -35,7 +45,7 @@ export function LocationPickerSheet({ stores, selectedStoreId, onSelectStore, on
         maxWidth: '480px',
         margin: '0 auto',
         backgroundColor: 'var(--color-bg)',
-        zIndex: 100,
+        zIndex: 200,
         display: 'flex',
         flexDirection: 'column',
         borderTopLeftRadius: '24px',
@@ -112,8 +122,29 @@ export function LocationPickerSheet({ stores, selectedStoreId, onSelectStore, on
               )}
             </button>
           ))}
+
+          {onCreateStore && (
+            <button
+              onClick={handleCreate}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '16px',
+                marginTop: '8px',
+                backgroundColor: 'transparent',
+                border: '1px dashed var(--color-border)',
+                borderRadius: 'var(--radius-md)',
+                color: 'var(--color-text-main)',
+                justifyContent: 'center',
+                fontWeight: 500
+              }}
+            >
+              <Plus size={18} /> Add New Location
+            </button>
+          )}
           
-          {stores.length === 0 && (
+          {stores.length === 0 && !onCreateStore && (
             <div style={{ padding: '32px 0', textAlign: 'center', color: 'var(--color-text-muted)' }}>
               No locations found.
             </div>

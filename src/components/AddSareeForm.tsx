@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { Saree } from '../types';
-import { X, Save } from 'lucide-react';
+import { X, Save, PlusCircle } from 'lucide-react';
 
 interface AddSareeFormProps {
   onAdd: (item: Omit<Saree, 'id' | 'created_at' | 'store_id' | 'user_id'>) => void;
   onClose: () => void;
 }
+
+const DEFAULT_CATEGORIES = ['Silk', 'Cotton', 'Fancy', 'Georgette', 'Linen', 'Banarasi', 'Kanjeevaram', 'Organza'];
 
 export function AddSareeForm({ onAdd, onClose }: AddSareeFormProps) {
   const [formData, setFormData] = useState({
@@ -15,6 +17,27 @@ export function AddSareeForm({ onAdd, onClose }: AddSareeFormProps) {
     quantity: '',
     price: ''
   });
+  const [customCategories, setCustomCategories] = useState<string[]>([]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('nisira_custom_categories');
+    if (saved) {
+      try {
+        setCustomCategories(JSON.parse(saved));
+      } catch (e) {}
+    }
+  }, []);
+
+  const handleAddCategory = () => {
+    const newCategory = window.prompt('Enter new material/category:');
+    if (newCategory && newCategory.trim()) {
+      const formatted = newCategory.trim();
+      const updated = [...customCategories, formatted];
+      setCustomCategories(updated);
+      localStorage.setItem('nisira_custom_categories', JSON.stringify(updated));
+      setFormData(prev => ({ ...prev, category: formatted }));
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -125,35 +148,48 @@ export function AddSareeForm({ onAdd, onClose }: AddSareeFormProps) {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
             <label style={{ fontWeight: 500, fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--color-text-muted)' }} htmlFor="category">Material / Category</label>
-            <input
-              id="category"
-              name="category"
-              list="categories"
-              value={formData.category}
-              onChange={handleChange}
-              placeholder="e.g. Silk, Cotton, or type your own"
-              required
-              autoCapitalize="words"
-              style={{
-                width: '100%',
-                padding: '12px 0',
-                border: 'none',
-                borderBottom: '1px solid var(--color-border)',
-                borderRadius: 0,
-                fontSize: '1.1rem',
-                backgroundColor: 'transparent'
-              }}
-            />
-            <datalist id="categories">
-              <option value="Silk" />
-              <option value="Cotton" />
-              <option value="Fancy" />
-              <option value="Georgette" />
-              <option value="Linen" />
-              <option value="Banarasi" />
-              <option value="Kanjeevaram" />
-              <option value="Organza" />
-            </datalist>
+            <div style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid var(--color-border)' }}>
+              <select
+                id="category"
+                name="category"
+                value={formData.category}
+                onChange={handleChange}
+                required
+                style={{
+                  flex: 1,
+                  padding: '12px 0',
+                  border: 'none',
+                  borderRadius: 0,
+                  fontSize: '1.1rem',
+                  backgroundColor: 'transparent',
+                  WebkitAppearance: 'none',
+                  color: formData.category ? 'var(--color-text-main)' : 'var(--color-text-muted)'
+                }}
+              >
+                <option value="" disabled>Select material...</option>
+                {[...DEFAULT_CATEGORIES, ...customCategories].map(cat => (
+                  <option key={cat} value={cat}>{cat}</option>
+                ))}
+              </select>
+              <button
+                type="button"
+                onClick={handleAddCategory}
+                style={{
+                  padding: '8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'var(--color-text-muted)',
+                  opacity: 0.7,
+                  transition: 'opacity 0.2s ease'
+                }}
+                onMouseOver={(e) => e.currentTarget.style.opacity = '1'}
+                onMouseOut={(e) => e.currentTarget.style.opacity = '0.7'}
+                aria-label="Add new material"
+              >
+                <PlusCircle size={20} strokeWidth={1.5} />
+              </button>
+            </div>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>

@@ -93,6 +93,7 @@ export default function App() {
                 stores={stores}
                 selectedStoreId={selectedStoreId}
                 onSelectStore={setSelectedStoreId}
+                onCreateStore={createStore}
               />
               
               <SareeList 

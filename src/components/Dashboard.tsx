@@ -8,9 +8,10 @@ interface DashboardProps {
   stores: Store[];
   selectedStoreId: string | null;
   onSelectStore: (id: string) => void;
+  onCreateStore?: (name: string) => void;
 }
 
-export function Dashboard({ inventory, stores, selectedStoreId, onSelectStore }: DashboardProps) {
+export function Dashboard({ inventory, stores, selectedStoreId, onSelectStore, onCreateStore }: DashboardProps) {
   const [isPickerOpen, setIsPickerOpen] = useState(false);
   const totalStock = inventory.reduce((sum, item) => sum + item.quantity, 0);
   const totalValue = inventory.reduce((sum, item) => sum + (item.price * item.quantity), 0);
@@ -74,6 +75,7 @@ export function Dashboard({ inventory, stores, selectedStoreId, onSelectStore }:
           stores={stores}
           selectedStoreId={selectedStoreId}
           onSelectStore={onSelectStore}
+          onCreateStore={onCreateStore}
           onClose={() => setIsPickerOpen(false)}
         />
       )}
