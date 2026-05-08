@@ -112,6 +112,7 @@ export function AddSareeForm({ onAdd, onClose }: AddSareeFormProps) {
               required
               autoCapitalize="characters"
               style={{
+                width: '100%',
                 padding: '12px 16px',
                 borderRadius: 'var(--radius-md)',
                 border: '1px solid var(--color-border)',
@@ -130,6 +131,7 @@ export function AddSareeForm({ onAdd, onClose }: AddSareeFormProps) {
               onChange={handleChange}
               required
               style={{
+                width: '100%',
                 padding: '12px 16px',
                 borderRadius: 'var(--radius-md)',
                 border: '1px solid var(--color-border)',
@@ -158,6 +160,7 @@ export function AddSareeForm({ onAdd, onClose }: AddSareeFormProps) {
               required
               autoCapitalize="words"
               style={{
+                width: '100%',
                 padding: '12px 16px',
                 borderRadius: 'var(--radius-md)',
                 border: '1px solid var(--color-border)',
@@ -181,6 +184,8 @@ export function AddSareeForm({ onAdd, onClose }: AddSareeFormProps) {
                 onChange={handleChange}
                 required
                 style={{
+                  width: '100%',
+                  minWidth: 0,
                   padding: '12px 16px',
                   borderRadius: 'var(--radius-md)',
                   border: '1px solid var(--color-border)',
@@ -203,6 +208,8 @@ export function AddSareeForm({ onAdd, onClose }: AddSareeFormProps) {
                 onChange={handleChange}
                 required
                 style={{
+                  width: '100%',
+                  minWidth: 0,
                   padding: '12px 16px',
                   borderRadius: 'var(--radius-md)',
                   border: '1px solid var(--color-border)',
