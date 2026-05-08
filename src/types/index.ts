@@ -6,6 +6,14 @@ export type Saree = {
   quantity: number;
   price: number;
   created_at: string;
+  store_id: string;
+  user_id: string;
 };
 
-export const DUMMY = 'dummy';
+export type Store = {
+  id: string;
+  user_id: string;
+  name: string;
+  created_at: string;
+};
+
