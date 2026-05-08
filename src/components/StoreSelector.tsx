@@ -76,7 +76,7 @@ export function StoreSelector({ stores, selectedStoreId, onSelectStore, onCreate
           border: '1px solid var(--color-border)',
           zIndex: 50,
           overflow: 'hidden',
-          animation: 'slideUpFade 0.2s ease-out forwards'
+          animation: 'dropdownFade 0.2s ease-out forwards'
         }}>
           {isCreating ? (
             <form onSubmit={handleCreate} style={{ padding: '16px' }}>
